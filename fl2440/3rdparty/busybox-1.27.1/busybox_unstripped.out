@@ -1,0 +1,1578 @@
+Output of:
+/opt/xtools/arm920t/bin/arm-linux-gcc -Wall -Wshadow -Wwrite-strings -Wundef -Wstrict-prototypes -Wunused -Wunused-parameter -Wunused-function -Wunused-value -Wmissing-prototypes -Wmissing-declarations -Wno-format-security -Wdeclaration-after-statement -Wold-style-definition -fno-builtin-strlen -finline-limit=0 -fomit-frame-pointer -ffunction-sections -fdata-sections -fno-guess-branch-probability -funsigned-char -static-libgcc -falign-functions=1 -falign-jumps=1 -falign-labels=1 -falign-loops=1 -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-builtin-printf -Os -static -o busybox_unstripped -Wl,--sort-common -Wl,--sort-section,alignment -Wl,--start-group applets/built-in.o archival/lib.a archival/libarchive/lib.a console-tools/lib.a coreutils/lib.a coreutils/libcoreutils/lib.a debianutils/lib.a e2fsprogs/lib.a editors/lib.a findutils/lib.a init/lib.a libbb/lib.a libpwdgrp/lib.a loginutils/lib.a mailutils/lib.a miscutils/lib.a modutils/lib.a networking/lib.a networking/libiproute/lib.a networking/udhcp/lib.a printutils/lib.a procps/lib.a runit/lib.a selinux/lib.a shell/lib.a sysklogd/lib.a util-linux/lib.a util-linux/volume_id/lib.a archival/built-in.o archival/libarchive/built-in.o console-tools/built-in.o coreutils/built-in.o coreutils/libcoreutils/built-in.o debianutils/built-in.o e2fsprogs/built-in.o editors/built-in.o findutils/built-in.o init/built-in.o libbb/built-in.o libpwdgrp/built-in.o loginutils/built-in.o mailutils/built-in.o miscutils/built-in.o modutils/built-in.o networking/built-in.o networking/libiproute/built-in.o networking/udhcp/built-in.o printutils/built-in.o procps/built-in.o runit/built-in.o selinux/built-in.o shell/built-in.o sysklogd/built-in.o util-linux/built-in.o util-linux/volume_id/built-in.o -Wl,--end-group -Wl,--start-group -lm -Wl,--end-group -Wl,--warn-common -Wl,-Map,busybox_unstripped.map -Wl,--verbose
+==========
+GNU ld (crosstool-NG 1.16.0) 2.20.1.20100303
+  Supported emulations:
+   armelf_linux_eabi
+   armelfb_linux_eabi
+using internal linker script:
+==================================================
+/* Script for -z combreloc: combine and sort reloc sections */
+OUTPUT_FORMAT("elf32-littlearm", "elf32-bigarm",
+	      "elf32-littlearm")
+OUTPUT_ARCH(arm)
+ENTRY(_start)
+SEARCH_DIR("=/usr/local/lib"); SEARCH_DIR("=/lib"); SEARCH_DIR("=/usr/lib");
+SECTIONS
+{
+  /* Read-only sections, merged into text segment: */
+  PROVIDE (__executable_start = SEGMENT_START("text-segment", 0x00008000)); . = SEGMENT_START("text-segment", 0x00008000) + SIZEOF_HEADERS;
+  .interp         : { *(.interp) }
+  .note.gnu.build-id : { *(.note.gnu.build-id) }
+  .hash           : { *(.hash) }
+  .gnu.hash       : { *(.gnu.hash) }
+  .dynsym         : { *(.dynsym) }
+  .dynstr         : { *(.dynstr) }
+  .gnu.version    : { *(.gnu.version) }
+  .gnu.version_d  : { *(.gnu.version_d) }
+  .gnu.version_r  : { *(.gnu.version_r) }
+  .rel.dyn        :
+    {
+      *(.rel.init)
+      *(.rel.text .rel.text.* .rel.gnu.linkonce.t.*)
+      *(.rel.fini)
+      *(.rel.rodata .rel.rodata.* .rel.gnu.linkonce.r.*)
+      *(.rel.data.rel.ro* .rel.gnu.linkonce.d.rel.ro.*)
+      *(.rel.data .rel.data.* .rel.gnu.linkonce.d.*)
+      *(.rel.tdata .rel.tdata.* .rel.gnu.linkonce.td.*)
+      *(.rel.tbss .rel.tbss.* .rel.gnu.linkonce.tb.*)
+      *(.rel.ctors)
+      *(.rel.dtors)
+      *(.rel.got)
+      *(.rel.bss .rel.bss.* .rel.gnu.linkonce.b.*)
+      PROVIDE_HIDDEN (__rel_iplt_start = .);
+      *(.rel.iplt)
+      PROVIDE_HIDDEN (__rel_iplt_end = .);
+      PROVIDE_HIDDEN (__rela_iplt_start = .);
+      PROVIDE_HIDDEN (__rela_iplt_end = .);
+    }
+  .rela.dyn       :
+    {
+      *(.rela.init)
+      *(.rela.text .rela.text.* .rela.gnu.linkonce.t.*)
+      *(.rela.fini)
+      *(.rela.rodata .rela.rodata.* .rela.gnu.linkonce.r.*)
+      *(.rela.data .rela.data.* .rela.gnu.linkonce.d.*)
+      *(.rela.tdata .rela.tdata.* .rela.gnu.linkonce.td.*)
+      *(.rela.tbss .rela.tbss.* .rela.gnu.linkonce.tb.*)
+      *(.rela.ctors)
+      *(.rela.dtors)
+      *(.rela.got)
+      *(.rela.bss .rela.bss.* .rela.gnu.linkonce.b.*)
+      PROVIDE_HIDDEN (__rel_iplt_start = .);
+      PROVIDE_HIDDEN (__rel_iplt_end = .);
+      PROVIDE_HIDDEN (__rela_iplt_start = .);
+      *(.rela.iplt)
+      PROVIDE_HIDDEN (__rela_iplt_end = .);
+    }
+  .rel.plt        :
+    {
+      *(.rel.plt)
+    }
+  .rela.plt       :
+    {
+      *(.rela.plt)
+    }
+  .init           :
+  {
+    KEEP (*(.init))
+  } =0
+  .plt            : { *(.plt) }
+  .iplt           : { *(.iplt) }
+  .text           :
+  {
+    *(.text.unlikely .text.*_unlikely)
+    *(.text .stub .text.* .gnu.linkonce.t.*)
+    /* .gnu.warning sections are handled specially by elf32.em.  */
+    *(.gnu.warning)
+    *(.glue_7t) *(.glue_7) *(.vfp11_veneer) *(.v4_bx)
+  } =0
+  .fini           :
+  {
+    KEEP (*(.fini))
+  } =0
+  PROVIDE (__etext = .);
+  PROVIDE (_etext = .);
+  PROVIDE (etext = .);
+  .rodata         : { *(.rodata .rodata.* .gnu.linkonce.r.*) }
+  .rodata1        : { *(.rodata1) }
+  .ARM.extab   : { *(.ARM.extab* .gnu.linkonce.armextab.*) }
+   __exidx_start = .;
+  .ARM.exidx   : { *(.ARM.exidx* .gnu.linkonce.armexidx.*) }
+   __exidx_end = .;
+  .eh_frame_hdr : { *(.eh_frame_hdr) }
+  .eh_frame       : ONLY_IF_RO { KEEP (*(.eh_frame)) }
+  .gcc_except_table   : ONLY_IF_RO { *(.gcc_except_table .gcc_except_table.*) }
+  /* Adjust the address for the data segment.  We want to adjust up to
+     the same address within the page on the next page up.  */
+  . = ALIGN (CONSTANT (MAXPAGESIZE)) - ((CONSTANT (MAXPAGESIZE) - .) & (CONSTANT (MAXPAGESIZE) - 1)); . = DATA_SEGMENT_ALIGN (CONSTANT (MAXPAGESIZE), CONSTANT (COMMONPAGESIZE));
+  /* Exception handling  */
+  .eh_frame       : ONLY_IF_RW { KEEP (*(.eh_frame)) }
+  .gcc_except_table   : ONLY_IF_RW { *(.gcc_except_table .gcc_except_table.*) }
+  /* Thread Local Storage sections  */
+  .tdata	  : { *(.tdata .tdata.* .gnu.linkonce.td.*) }
+  .tbss		  : { *(.tbss .tbss.* .gnu.linkonce.tb.*) *(.tcommon) }
+  .preinit_array     :
+  {
+    PROVIDE_HIDDEN (__preinit_array_start = .);
+    KEEP (*(.preinit_array))
+    PROVIDE_HIDDEN (__preinit_array_end = .);
+  }
+  .init_array     :
+  {
+     PROVIDE_HIDDEN (__init_array_start = .);
+     KEEP (*(SORT(.init_array.*)))
+     KEEP (*(.init_array))
+     PROVIDE_HIDDEN (__init_array_end = .);
+  }
+  .fini_array     :
+  {
+    PROVIDE_HIDDEN (__fini_array_start = .);
+    KEEP (*(.fini_array))
+    KEEP (*(SORT(.fini_array.*)))
+    PROVIDE_HIDDEN (__fini_array_end = .);
+  }
+  .ctors          :
+  {
+    /* gcc uses crtbegin.o to find the start of
+       the constructors, so we make sure it is
+       first.  Because this is a wildcard, it
+       doesn't matter if the user does not
+       actually link against crtbegin.o; the
+       linker won't look for a file to match a
+       wildcard.  The wildcard also means that it
+       doesn't matter which directory crtbegin.o
+       is in.  */
+    KEEP (*crtbegin.o(.ctors))
+    KEEP (*crtbegin?.o(.ctors))
+    /* We don't want to include the .ctor section from
+       the crtend.o file until after the sorted ctors.
+       The .ctor section from the crtend file contains the
+       end of ctors marker and it must be last */
+    KEEP (*(EXCLUDE_FILE (*crtend.o *crtend?.o ) .ctors))
+    KEEP (*(SORT(.ctors.*)))
+    KEEP (*(.ctors))
+  }
+  .dtors          :
+  {
+    KEEP (*crtbegin.o(.dtors))
+    KEEP (*crtbegin?.o(.dtors))
+    KEEP (*(EXCLUDE_FILE (*crtend.o *crtend?.o ) .dtors))
+    KEEP (*(SORT(.dtors.*)))
+    KEEP (*(.dtors))
+  }
+  .jcr            : { KEEP (*(.jcr)) }
+  .data.rel.ro : { *(.data.rel.ro.local* .gnu.linkonce.d.rel.ro.local.*) *(.data.rel.ro* .gnu.linkonce.d.rel.ro.*) }
+  .dynamic        : { *(.dynamic) }
+  . = DATA_SEGMENT_RELRO_END (0, .);
+  .got            : { *(.got.plt) *(.igot.plt) *(.got) *(.igot) }
+  .data           :
+  {
+    PROVIDE (__data_start = .);
+    *(.data .data.* .gnu.linkonce.d.*)
+    SORT(CONSTRUCTORS)
+  }
+  .data1          : { *(.data1) }
+  _edata = .; PROVIDE (edata = .);
+  __bss_start = .;
+  __bss_start__ = .;
+  .bss            :
+  {
+   *(.dynbss)
+   *(.bss .bss.* .gnu.linkonce.b.*)
+   *(COMMON)
+   /* Align here to ensure that the .bss section occupies space up to
+      _end.  Align after .bss to ensure correct alignment even if the
+      .bss section disappears because there are no input sections.
+      FIXME: Why do we need it? When there is no .bss section, we don't
+      pad the .data section.  */
+   . = ALIGN(. != 0 ? 32 / 8 : 1);
+  }
+  _bss_end__ = . ; __bss_end__ = . ;
+  . = ALIGN(32 / 8);
+  . = ALIGN(32 / 8);
+  __end__ = . ;
+  _end = .; PROVIDE (end = .);
+  . = DATA_SEGMENT_END (.);
+  /* Stabs debugging sections.  */
+  .stab          0 : { *(.stab) }
+  .stabstr       0 : { *(.stabstr) }
+  .stab.excl     0 : { *(.stab.excl) }
+  .stab.exclstr  0 : { *(.stab.exclstr) }
+  .stab.index    0 : { *(.stab.index) }
+  .stab.indexstr 0 : { *(.stab.indexstr) }
+  .comment       0 : { *(.comment) }
+  /* DWARF debug sections.
+     Symbols in the DWARF debugging sections are relative to the beginning
+     of the section so we begin them at 0.  */
+  /* DWARF 1 */
+  .debug          0 : { *(.debug) }
+  .line           0 : { *(.line) }
+  /* GNU DWARF 1 extensions */
+  .debug_srcinfo  0 : { *(.debug_srcinfo) }
+  .debug_sfnames  0 : { *(.debug_sfnames) }
+  /* DWARF 1.1 and DWARF 2 */
+  .debug_aranges  0 : { *(.debug_aranges) }
+  .debug_pubnames 0 : { *(.debug_pubnames) }
+  /* DWARF 2 */
+  .debug_info     0 : { *(.debug_info .gnu.linkonce.wi.*) }
+  .debug_abbrev   0 : { *(.debug_abbrev) }
+  .debug_line     0 : { *(.debug_line) }
+  .debug_frame    0 : { *(.debug_frame) }
+  .debug_str      0 : { *(.debug_str) }
+  .debug_loc      0 : { *(.debug_loc) }
+  .debug_macinfo  0 : { *(.debug_macinfo) }
+  /* SGI/MIPS DWARF 2 extensions */
+  .debug_weaknames 0 : { *(.debug_weaknames) }
+  .debug_funcnames 0 : { *(.debug_funcnames) }
+  .debug_typenames 0 : { *(.debug_typenames) }
+  .debug_varnames  0 : { *(.debug_varnames) }
+  /* DWARF 3 */
+  .debug_pubtypes 0 : { *(.debug_pubtypes) }
+  .debug_ranges   0 : { *(.debug_ranges) }
+  .gnu.attributes 0 : { KEEP (*(.gnu.attributes)) }
+  .note.gnu.arm.ident 0 : { KEEP (*(.note.gnu.arm.ident)) }
+  /DISCARD/ : { *(.note.GNU-stack) *(.gnu_debuglink) *(.gnu.lto_*) }
+}
+
+
+==================================================
+attempt to open /opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/crt1.o succeeded
+/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/crt1.o
+attempt to open /opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/crti.o succeeded
+/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/crti.o
+attempt to open /opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/crtbeginT.o succeeded
+/opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/crtbeginT.o
+attempt to open applets/built-in.o succeeded
+applets/built-in.o
+attempt to open archival/lib.a succeeded
+attempt to open archival/libarchive/lib.a succeeded
+attempt to open console-tools/lib.a succeeded
+attempt to open coreutils/lib.a succeeded
+attempt to open coreutils/libcoreutils/lib.a succeeded
+attempt to open debianutils/lib.a succeeded
+attempt to open e2fsprogs/lib.a succeeded
+attempt to open editors/lib.a succeeded
+attempt to open findutils/lib.a succeeded
+attempt to open init/lib.a succeeded
+attempt to open libbb/lib.a succeeded
+(libbb/lib.a)appletlib.o
+(libbb/lib.a)compare_string_array.o
+(libbb/lib.a)concat_path_file.o
+(libbb/lib.a)default_error_retval.o
+(libbb/lib.a)get_last_path_component.o
+(libbb/lib.a)last_char_is.o
+(libbb/lib.a)llist.o
+(libbb/lib.a)messages.o
+(libbb/lib.a)perror_msg.o
+(libbb/lib.a)ptr_to_globals.o
+(libbb/lib.a)skip_whitespace.o
+(libbb/lib.a)verror_msg.o
+(libbb/lib.a)wfopen.o
+(libbb/lib.a)xfunc_die.o
+(libbb/lib.a)xfuncs.o
+(libbb/lib.a)xfuncs_printf.o
+(libbb/lib.a)xreadlink.o
+(libbb/lib.a)copyfd.o
+(libbb/lib.a)full_write.o
+(libbb/lib.a)read.o
+(libbb/lib.a)safe_write.o
+(libbb/lib.a)signals.o
+(libbb/lib.a)time.o
+(libbb/lib.a)bb_strtonum.o
+attempt to open libpwdgrp/lib.a succeeded
+(libpwdgrp/lib.a)pwd_grp.o
+(libpwdgrp/lib.a)uidgid_get.o
+attempt to open loginutils/lib.a succeeded
+(loginutils/lib.a)addgroup.o
+(loginutils/lib.a)adduser.o
+(loginutils/lib.a)chpasswd.o
+(loginutils/lib.a)cryptpw.o
+(loginutils/lib.a)deluser.o
+(loginutils/lib.a)getty.o
+(loginutils/lib.a)login.o
+(loginutils/lib.a)passwd.o
+(loginutils/lib.a)su.o
+(loginutils/lib.a)sulogin.o
+(loginutils/lib.a)vlock.o
+attempt to open mailutils/lib.a succeeded
+attempt to open miscutils/lib.a succeeded
+(miscutils/lib.a)adjtimex.o
+(miscutils/lib.a)beep.o
+(miscutils/lib.a)chat.o
+(miscutils/lib.a)conspy.o
+(miscutils/lib.a)crond.o
+(miscutils/lib.a)crontab.o
+(miscutils/lib.a)dc.o
+(miscutils/lib.a)devmem.o
+(miscutils/lib.a)fbsplash.o
+(miscutils/lib.a)hdparm.o
+(miscutils/lib.a)i2c_tools.o
+(miscutils/lib.a)less.o
+(miscutils/lib.a)lsscsi.o
+(miscutils/lib.a)makedevs.o
+(miscutils/lib.a)man.o
+(miscutils/lib.a)microcom.o
+(miscutils/lib.a)mt.o
+(miscutils/lib.a)nandwrite.o
+(miscutils/lib.a)partprobe.o
+(miscutils/lib.a)raidautorun.o
+(miscutils/lib.a)readahead.o
+(miscutils/lib.a)runlevel.o
+(miscutils/lib.a)rx.o
+(miscutils/lib.a)setserial.o
+(miscutils/lib.a)strings.o
+(miscutils/lib.a)time.o
+(miscutils/lib.a)ttysize.o
+(miscutils/lib.a)ubi_tools.o
+(miscutils/lib.a)ubirename.o
+(miscutils/lib.a)volname.o
+(miscutils/lib.a)watchdog.o
+attempt to open modutils/lib.a succeeded
+(modutils/lib.a)modinfo.o
+(modutils/lib.a)modprobe-small.o
+(modutils/lib.a)modutils.o
+attempt to open networking/lib.a succeeded
+(networking/lib.a)arp.o
+(networking/lib.a)arping.o
+(networking/lib.a)brctl.o
+(networking/lib.a)dnsd.o
+(networking/lib.a)ether-wake.o
+(networking/lib.a)ftpd.o
+(networking/lib.a)ftpgetput.o
+(networking/lib.a)hostname.o
+(networking/lib.a)httpd.o
+(networking/lib.a)ifconfig.o
+(networking/lib.a)ifenslave.o
+(networking/lib.a)ifplugd.o
+(networking/lib.a)ifupdown.o
+(networking/lib.a)inetd.o
+(networking/lib.a)interface.o
+(networking/lib.a)ip.o
+(networking/lib.a)ipcalc.o
+(networking/lib.a)isrv_identd.o
+(networking/lib.a)nameif.o
+(networking/lib.a)nbd-client.o
+(networking/lib.a)nc.o
+(networking/lib.a)netstat.o
+(networking/lib.a)nslookup.o
+(networking/lib.a)ntpd.o
+(networking/lib.a)ping.o
+(networking/lib.a)pscan.o
+(networking/lib.a)route.o
+(networking/lib.a)slattach.o
+(networking/lib.a)ssl_client.o
+(networking/lib.a)tcpudp.o
+(networking/lib.a)tcpudp_perhost.o
+(networking/lib.a)telnet.o
+(networking/lib.a)telnetd.o
+(networking/lib.a)tftp.o
+(networking/lib.a)tls.o
+(networking/lib.a)tls_aes.o
+(networking/lib.a)tls_pstm.o
+(networking/lib.a)tls_pstm_montgomery_reduce.o
+(networking/lib.a)tls_pstm_mul_comba.o
+(networking/lib.a)tls_pstm_sqr_comba.o
+(networking/lib.a)tls_rsa.o
+(networking/lib.a)traceroute.o
+(networking/lib.a)tunctl.o
+(networking/lib.a)vconfig.o
+(networking/lib.a)wget.o
+(networking/lib.a)whois.o
+(networking/lib.a)zcip.o
+(networking/lib.a)isrv.o
+attempt to open networking/libiproute/lib.a succeeded
+(networking/libiproute/lib.a)ip_parse_common_args.o
+(networking/libiproute/lib.a)ipaddress.o
+(networking/libiproute/lib.a)iplink.o
+(networking/libiproute/lib.a)ipneigh.o
+(networking/libiproute/lib.a)iproute.o
+(networking/libiproute/lib.a)iprule.o
+(networking/libiproute/lib.a)iptunnel.o
+(networking/libiproute/lib.a)libnetlink.o
+(networking/libiproute/lib.a)ll_addr.o
+(networking/libiproute/lib.a)ll_map.o
+(networking/libiproute/lib.a)ll_types.o
+(networking/libiproute/lib.a)rt_names.o
+(networking/libiproute/lib.a)rtm_map.o
+(networking/libiproute/lib.a)utils.o
+attempt to open networking/udhcp/lib.a succeeded
+(networking/udhcp/lib.a)dhcpc.o
+(networking/udhcp/lib.a)dhcpd.o
+(networking/udhcp/lib.a)dhcprelay.o
+(networking/udhcp/lib.a)domain_codec.o
+(networking/udhcp/lib.a)dumpleases.o
+(networking/udhcp/lib.a)packet.o
+(networking/udhcp/lib.a)signalpipe.o
+(networking/udhcp/lib.a)socket.o
+(networking/udhcp/lib.a)arpping.o
+(networking/udhcp/lib.a)common.o
+attempt to open printutils/lib.a succeeded
+attempt to open procps/lib.a succeeded
+(procps/lib.a)free.o
+(procps/lib.a)fuser.o
+(procps/lib.a)iostat.o
+(procps/lib.a)kill.o
+(procps/lib.a)lsof.o
+(procps/lib.a)mpstat.o
+(procps/lib.a)nmeter.o
+(procps/lib.a)pgrep.o
+(procps/lib.a)pidof.o
+(procps/lib.a)pmap.o
+(procps/lib.a)powertop.o
+(procps/lib.a)ps.o
+(procps/lib.a)pstree.o
+(procps/lib.a)pwdx.o
+(procps/lib.a)smemcap.o
+(procps/lib.a)sysctl.o
+(procps/lib.a)top.o
+(procps/lib.a)uptime.o
+(procps/lib.a)watch.o
+attempt to open runit/lib.a succeeded
+(runit/lib.a)chpst.o
+(runit/lib.a)runsv.o
+(runit/lib.a)runsvdir.o
+(runit/lib.a)sv.o
+(runit/lib.a)svlogd.o
+attempt to open selinux/lib.a succeeded
+attempt to open shell/lib.a succeeded
+(shell/lib.a)ash.o
+(shell/lib.a)ash_ptr_hack.o
+(shell/lib.a)cttyhack.o
+(shell/lib.a)hush.o
+(shell/lib.a)match.o
+(shell/lib.a)math.o
+(shell/lib.a)random.o
+(shell/lib.a)shell_common.o
+attempt to open sysklogd/lib.a succeeded
+(sysklogd/lib.a)klogd.o
+(sysklogd/lib.a)logread.o
+(sysklogd/lib.a)syslogd_and_logger.o
+attempt to open util-linux/lib.a succeeded
+(util-linux/lib.a)acpid.o
+(util-linux/lib.a)blkdiscard.o
+(util-linux/lib.a)blkid.o
+(util-linux/lib.a)blockdev.o
+(util-linux/lib.a)cal.o
+(util-linux/lib.a)chrt.o
+(util-linux/lib.a)dmesg.o
+(util-linux/lib.a)eject.o
+(util-linux/lib.a)fallocate.o
+(util-linux/lib.a)fatattr.o
+(util-linux/lib.a)fbset.o
+(util-linux/lib.a)fdformat.o
+(util-linux/lib.a)fdisk.o
+(util-linux/lib.a)findfs.o
+(util-linux/lib.a)flock.o
+(util-linux/lib.a)freeramdisk.o
+(util-linux/lib.a)fsck_minix.o
+(util-linux/lib.a)fsfreeze.o
+(util-linux/lib.a)fstrim.o
+(util-linux/lib.a)getopt.o
+(util-linux/lib.a)hexdump.o
+(util-linux/lib.a)hexdump_xxd.o
+(util-linux/lib.a)hwclock.o
+(util-linux/lib.a)ionice.o
+(util-linux/lib.a)ipcrm.o
+(util-linux/lib.a)ipcs.o
+(util-linux/lib.a)last_fancy.o
+(util-linux/lib.a)losetup.o
+(util-linux/lib.a)lspci.o
+(util-linux/lib.a)lsusb.o
+(util-linux/lib.a)mdev.o
+(util-linux/lib.a)mesg.o
+(util-linux/lib.a)mkfs_ext2.o
+(util-linux/lib.a)mkfs_minix.o
+(util-linux/lib.a)mkfs_vfat.o
+(util-linux/lib.a)mkswap.o
+(util-linux/lib.a)more.o
+(util-linux/lib.a)mount.o
+(util-linux/lib.a)mountpoint.o
+(util-linux/lib.a)pivot_root.o
+(util-linux/lib.a)rdate.o
+(util-linux/lib.a)rdev.o
+(util-linux/lib.a)readprofile.o
+(util-linux/lib.a)renice.o
+(util-linux/lib.a)rev.o
+(util-linux/lib.a)rtcwake.o
+(util-linux/lib.a)script.o
+(util-linux/lib.a)scriptreplay.o
+(util-linux/lib.a)setarch.o
+(util-linux/lib.a)setpriv.o
+(util-linux/lib.a)setsid.o
+(util-linux/lib.a)swaponoff.o
+(util-linux/lib.a)switch_root.o
+(util-linux/lib.a)taskset.o
+(util-linux/lib.a)uevent.o
+(util-linux/lib.a)umount.o
+(util-linux/lib.a)unshare.o
+(util-linux/lib.a)wall.o
+attempt to open util-linux/volume_id/lib.a succeeded
+(util-linux/volume_id/lib.a)get_devname.o
+(util-linux/volume_id/lib.a)volume_id.o
+(util-linux/volume_id/lib.a)xfs.o
+(util-linux/volume_id/lib.a)bcache.o
+(util-linux/volume_id/lib.a)btrfs.o
+(util-linux/volume_id/lib.a)cramfs.o
+(util-linux/volume_id/lib.a)exfat.o
+(util-linux/volume_id/lib.a)ext.o
+(util-linux/volume_id/lib.a)f2fs.o
+(util-linux/volume_id/lib.a)fat.o
+(util-linux/volume_id/lib.a)hfs.o
+(util-linux/volume_id/lib.a)iso9660.o
+(util-linux/volume_id/lib.a)jfs.o
+(util-linux/volume_id/lib.a)linux_raid.o
+(util-linux/volume_id/lib.a)linux_swap.o
+(util-linux/volume_id/lib.a)luks.o
+(util-linux/volume_id/lib.a)nilfs.o
+(util-linux/volume_id/lib.a)ntfs.o
+(util-linux/volume_id/lib.a)ocfs2.o
+(util-linux/volume_id/lib.a)reiserfs.o
+(util-linux/volume_id/lib.a)romfs.o
+(util-linux/volume_id/lib.a)sysv.o
+(util-linux/volume_id/lib.a)ubifs.o
+(util-linux/volume_id/lib.a)udf.o
+(util-linux/volume_id/lib.a)util.o
+attempt to open archival/built-in.o succeeded
+attempt to open archival/libarchive/built-in.o succeeded
+attempt to open console-tools/built-in.o succeeded
+attempt to open coreutils/built-in.o succeeded
+attempt to open coreutils/libcoreutils/built-in.o succeeded
+attempt to open debianutils/built-in.o succeeded
+attempt to open e2fsprogs/built-in.o succeeded
+attempt to open editors/built-in.o succeeded
+attempt to open findutils/built-in.o succeeded
+attempt to open init/built-in.o succeeded
+attempt to open libbb/built-in.o succeeded
+attempt to open libpwdgrp/built-in.o succeeded
+attempt to open loginutils/built-in.o succeeded
+attempt to open mailutils/built-in.o succeeded
+attempt to open miscutils/built-in.o succeeded
+attempt to open modutils/built-in.o succeeded
+attempt to open networking/built-in.o succeeded
+attempt to open networking/libiproute/built-in.o succeeded
+attempt to open networking/udhcp/built-in.o succeeded
+attempt to open printutils/built-in.o succeeded
+attempt to open procps/built-in.o succeeded
+attempt to open runit/built-in.o succeeded
+attempt to open selinux/built-in.o succeeded
+attempt to open shell/built-in.o succeeded
+attempt to open sysklogd/built-in.o succeeded
+attempt to open util-linux/built-in.o succeeded
+attempt to open util-linux/volume_id/built-in.o succeeded
+(archival/lib.a)bbunzip.o
+(archival/lib.a)bzip2.o
+(archival/lib.a)cpio.o
+(archival/lib.a)dpkg.o
+(archival/lib.a)dpkg_deb.o
+(archival/lib.a)gzip.o
+(archival/lib.a)lzop.o
+(archival/lib.a)rpm.o
+(archival/lib.a)rpm2cpio.o
+(archival/lib.a)tar.o
+(archival/lib.a)unzip.o
+(archival/libarchive/lib.a)common.o
+(archival/libarchive/lib.a)data_extract_all.o
+(archival/libarchive/lib.a)data_extract_to_command.o
+(archival/libarchive/lib.a)data_extract_to_stdout.o
+(archival/libarchive/lib.a)data_skip.o
+(archival/libarchive/lib.a)decompress_bunzip2.o
+(archival/libarchive/lib.a)decompress_gunzip.o
+(archival/libarchive/lib.a)decompress_unlzma.o
+(archival/libarchive/lib.a)decompress_unxz.o
+(archival/libarchive/lib.a)filter_accept_list.o
+(archival/libarchive/lib.a)filter_accept_list_reassign.o
+(archival/libarchive/lib.a)filter_accept_reject_list.o
+(archival/libarchive/lib.a)find_list_entry.o
+(archival/libarchive/lib.a)get_header_cpio.o
+(archival/libarchive/lib.a)get_header_tar.o
+(archival/libarchive/lib.a)get_header_tar_bz2.o
+(archival/libarchive/lib.a)get_header_tar_gz.o
+(archival/libarchive/lib.a)get_header_tar_lzma.o
+(archival/libarchive/lib.a)get_header_tar_xz.o
+(archival/libarchive/lib.a)header_list.o
+(archival/libarchive/lib.a)header_verbose_list.o
+(archival/libarchive/lib.a)init_handle.o
+(archival/libarchive/lib.a)lzo1x_1.o
+(archival/libarchive/lib.a)lzo1x_1o.o
+(archival/libarchive/lib.a)lzo1x_d.o
+(archival/libarchive/lib.a)open_transformer.o
+(archival/libarchive/lib.a)seek_by_jump.o
+(archival/libarchive/lib.a)seek_by_read.o
+(archival/libarchive/lib.a)unpack_ar_archive.o
+(archival/libarchive/lib.a)unsafe_prefix.o
+(archival/libarchive/lib.a)data_align.o
+(archival/libarchive/lib.a)filter_accept_all.o
+(archival/libarchive/lib.a)get_header_ar.o
+(archival/libarchive/lib.a)header_skip.o
+(console-tools/lib.a)chvt.o
+(console-tools/lib.a)clear.o
+(console-tools/lib.a)deallocvt.o
+(console-tools/lib.a)dumpkmap.o
+(console-tools/lib.a)fgconsole.o
+(console-tools/lib.a)kbd_mode.o
+(console-tools/lib.a)loadfont.o
+(console-tools/lib.a)loadkmap.o
+(console-tools/lib.a)openvt.o
+(console-tools/lib.a)reset.o
+(console-tools/lib.a)resize.o
+(console-tools/lib.a)setconsole.o
+(console-tools/lib.a)setkeycodes.o
+(console-tools/lib.a)setlogcons.o
+(console-tools/lib.a)showkey.o
+(coreutils/lib.a)basename.o
+(coreutils/lib.a)cat.o
+(coreutils/lib.a)chgrp.o
+(coreutils/lib.a)chmod.o
+(coreutils/lib.a)chown.o
+(coreutils/lib.a)chroot.o
+(coreutils/lib.a)cksum.o
+(coreutils/lib.a)comm.o
+(coreutils/lib.a)cp.o
+(coreutils/lib.a)cut.o
+(coreutils/lib.a)date.o
+(coreutils/lib.a)dd.o
+(coreutils/lib.a)df.o
+(coreutils/lib.a)dirname.o
+(coreutils/lib.a)dos2unix.o
+(coreutils/lib.a)du.o
+(coreutils/lib.a)echo.o
+(coreutils/lib.a)env.o
+(coreutils/lib.a)expand.o
+(coreutils/lib.a)expr.o
+(coreutils/lib.a)factor.o
+(coreutils/lib.a)false.o
+(coreutils/lib.a)fold.o
+(coreutils/lib.a)fsync.o
+(coreutils/lib.a)head.o
+(coreutils/lib.a)hostid.o
+(coreutils/lib.a)id.o
+(coreutils/lib.a)install.o
+(coreutils/lib.a)link.o
+(coreutils/lib.a)ln.o
+(coreutils/lib.a)logname.o
+(coreutils/lib.a)ls.o
+(coreutils/lib.a)md5_sha1_sum.o
+(coreutils/lib.a)mkdir.o
+(coreutils/lib.a)mkfifo.o
+(coreutils/lib.a)mknod.o
+(coreutils/lib.a)mktemp.o
+(coreutils/lib.a)mv.o
+(coreutils/lib.a)nice.o
+(coreutils/lib.a)nl.o
+(coreutils/lib.a)nohup.o
+(coreutils/lib.a)nproc.o
+(coreutils/lib.a)od.o
+(coreutils/lib.a)paste.o
+(coreutils/lib.a)printenv.o
+(coreutils/lib.a)printf.o
+(coreutils/lib.a)pwd.o
+(coreutils/lib.a)readlink.o
+(coreutils/lib.a)realpath.o
+(coreutils/lib.a)rm.o
+(coreutils/lib.a)rmdir.o
+(coreutils/lib.a)seq.o
+(coreutils/lib.a)shred.o
+(coreutils/lib.a)shuf.o
+(coreutils/lib.a)sleep.o
+(coreutils/lib.a)sort.o
+(coreutils/lib.a)split.o
+(coreutils/lib.a)stat.o
+(coreutils/lib.a)stty.o
+(coreutils/lib.a)sum.o
+(coreutils/lib.a)tac.o
+(coreutils/lib.a)tail.o
+(coreutils/lib.a)tee.o
+(coreutils/lib.a)test.o
+(coreutils/lib.a)test_ptr_hack.o
+(coreutils/lib.a)timeout.o
+(coreutils/lib.a)touch.o
+(coreutils/lib.a)tr.o
+(coreutils/lib.a)true.o
+(coreutils/lib.a)truncate.o
+(coreutils/lib.a)tty.o
+(coreutils/lib.a)uname.o
+(coreutils/lib.a)uniq.o
+(coreutils/lib.a)unlink.o
+(coreutils/lib.a)usleep.o
+(coreutils/lib.a)uudecode.o
+(coreutils/lib.a)uuencode.o
+(coreutils/lib.a)wc.o
+(coreutils/lib.a)who.o
+(coreutils/lib.a)whoami.o
+(coreutils/lib.a)yes.o
+(coreutils/libcoreutils/lib.a)cp_mv_stat.o
+(coreutils/libcoreutils/lib.a)getopt_mk_fifo_nod.o
+(debianutils/lib.a)pipe_progress.o
+(debianutils/lib.a)run_parts.o
+(debianutils/lib.a)start_stop_daemon.o
+(debianutils/lib.a)which.o
+(e2fsprogs/lib.a)chattr.o
+(e2fsprogs/lib.a)e2fs_lib.o
+(e2fsprogs/lib.a)fsck.o
+(e2fsprogs/lib.a)lsattr.o
+(editors/lib.a)awk.o
+(editors/lib.a)cmp.o
+(editors/lib.a)diff.o
+(editors/lib.a)ed.o
+(editors/lib.a)patch.o
+(editors/lib.a)sed.o
+(editors/lib.a)vi.o
+(findutils/lib.a)find.o
+(findutils/lib.a)grep.o
+(findutils/lib.a)xargs.o
+(init/lib.a)bootchartd.o
+(init/lib.a)halt.o
+(init/lib.a)init.o
+(libbb/lib.a)ask_confirmation.o
+(libbb/lib.a)auto_string.o
+(libbb/lib.a)bb_askpass.o
+(libbb/lib.a)bb_bswap_64.o
+(libbb/lib.a)bb_cat.o
+(libbb/lib.a)bb_do_delay.o
+(libbb/lib.a)bb_pwd.o
+(libbb/lib.a)bb_qsort.o
+(libbb/lib.a)change_identity.o
+(libbb/lib.a)chomp.o
+(libbb/lib.a)common_bufsiz.o
+(libbb/lib.a)concat_subpath_file.o
+(libbb/lib.a)copy_file.o
+(libbb/lib.a)correct_password.o
+(libbb/lib.a)crc32.o
+(libbb/lib.a)device_open.o
+(libbb/lib.a)dump.o
+(libbb/lib.a)endofname.o
+(libbb/lib.a)executable.o
+(libbb/lib.a)fclose_nonstdin.o
+(libbb/lib.a)fflush_stdout_and_exit.o
+(libbb/lib.a)fgets_str.o
+(libbb/lib.a)find_mount_point.o
+(libbb/lib.a)find_pid_by_name.o
+(libbb/lib.a)find_root_device.o
+(libbb/lib.a)get_console.o
+(libbb/lib.a)get_cpu_count.o
+(libbb/lib.a)get_line_from_file.o
+(libbb/lib.a)get_shell_name.o
+(libbb/lib.a)get_volsize.o
+(libbb/lib.a)getopt32.o
+(libbb/lib.a)getpty.o
+(libbb/lib.a)hash_md5_sha.o
+(libbb/lib.a)herror_msg.o
+(libbb/lib.a)human_readable.o
+(libbb/lib.a)in_ether.o
+(libbb/lib.a)inet_cksum.o
+(libbb/lib.a)inet_common.o
+(libbb/lib.a)inode_hash.o
+(libbb/lib.a)isdirectory.o
+(libbb/lib.a)isqrt.o
+(libbb/lib.a)kernel_version.o
+(libbb/lib.a)lineedit.o
+(libbb/lib.a)lineedit_ptr_hack.o
+(libbb/lib.a)logenv.o
+(libbb/lib.a)login.o
+(libbb/lib.a)loop.o
+(libbb/lib.a)make_directory.o
+(libbb/lib.a)makedev.o
+(libbb/lib.a)match_fstype.o
+(libbb/lib.a)mode_string.o
+(libbb/lib.a)nuke_str.o
+(libbb/lib.a)obscure.o
+(libbb/lib.a)parse_config.o
+(libbb/lib.a)parse_mode.o
+(libbb/lib.a)percent_decode.o
+(libbb/lib.a)perror_nomsg_and_die.o
+(libbb/lib.a)pidfile.o
+(libbb/lib.a)print_flags.o
+(libbb/lib.a)printable.o
+(libbb/lib.a)printable_string.o
+(libbb/lib.a)process_escape_sequence.o
+(libbb/lib.a)procps.o
+(libbb/lib.a)progress.o
+(libbb/lib.a)pw_encrypt.o
+(libbb/lib.a)read_key.o
+(libbb/lib.a)read_printf.o
+(libbb/lib.a)recursive_action.o
+(libbb/lib.a)remove_file.o
+(libbb/lib.a)replace.o
+(libbb/lib.a)rtc.o
+(libbb/lib.a)run_shell.o
+(libbb/lib.a)safe_gethostname.o
+(libbb/lib.a)safe_poll.o
+(libbb/lib.a)safe_strncpy.o
+(libbb/lib.a)securetty.o
+(libbb/lib.a)setup_environment.o
+(libbb/lib.a)simplify_path.o
+(libbb/lib.a)single_argv.o
+(libbb/lib.a)speed_table.o
+(libbb/lib.a)str_tolower.o
+(libbb/lib.a)strrstr.o
+(libbb/lib.a)sysconf.o
+(libbb/lib.a)trim.o
+(libbb/lib.a)u_signal_names.o
+(libbb/lib.a)ubi.o
+(libbb/lib.a)udp_io.o
+(libbb/lib.a)unicode.o
+(libbb/lib.a)update_passwd.o
+(libbb/lib.a)utmp.o
+(libbb/lib.a)uuencode.o
+(libbb/lib.a)vfork_daemon_rexec.o
+(libbb/lib.a)wfopen_input.o
+(libbb/lib.a)write.o
+(libbb/lib.a)xatonum.o
+(libbb/lib.a)xconnect.o
+(libbb/lib.a)xgetcwd.o
+(libbb/lib.a)xgethostbyname.o
+(libbb/lib.a)xrealloc_vector.o
+(libbb/lib.a)xregcomp.o
+(libbb/lib.a)perror_nomsg.o
+attempt to open /opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libm.a failed
+attempt to open /opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/../../../../arm-arm920t-linux-gnueabi/lib/libm.a failed
+attempt to open /opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/lib/libm.a failed
+attempt to open /opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a succeeded
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)s_sin.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)w_atan2.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)w_exp.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)w_log.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)w_pow.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)w_sqrt.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)m_isnan.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)m_finite.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)m_signbit.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)branred.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)dosincos.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)sincos32.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)k_standard.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)s_lib_version.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)s_matherr.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)e_atan2.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)e_exp.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)e_log.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)e_pow.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)e_sqrt.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)s_rint.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)mpa.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)mpatan2.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)mpatan.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)mplog.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)mpsqrt.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)slowexp.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)slowpow.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)halfulp.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libm.a)mpexp.o
+attempt to open /opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libgcc.a succeeded
+(/opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libgcc.a)_udivsi3.o
+(/opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libgcc.a)_divsi3.o
+(/opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libgcc.a)_lshrdi3.o
+(/opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libgcc.a)_ashrdi3.o
+(/opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libgcc.a)_ashldi3.o
+(/opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libgcc.a)_arm_addsubdf3.o
+(/opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libgcc.a)_arm_muldivdf3.o
+(/opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libgcc.a)_arm_cmpdf2.o
+(/opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libgcc.a)_arm_fixdfsi.o
+(/opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libgcc.a)_arm_fixunsdfsi.o
+(/opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libgcc.a)_arm_truncdfsf2.o
+(/opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libgcc.a)_arm_addsubsf3.o
+(/opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libgcc.a)_arm_muldivsf3.o
+(/opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libgcc.a)_aeabi_lcmp.o
+(/opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libgcc.a)_aeabi_ldivmod.o
+(/opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libgcc.a)_aeabi_uldivmod.o
+(/opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libgcc.a)_dvmd_lnx.o
+(/opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libgcc.a)_fixdfdi.o
+(/opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libgcc.a)_fixunsdfdi.o
+(/opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libgcc.a)bpabi.o
+(/opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libgcc.a)_divdi3.o
+(/opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libgcc.a)_udivdi3.o
+(/opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libgcc.a)_clzsi2.o
+attempt to open /opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libgcc_eh.a succeeded
+(/opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libgcc_eh.a)unwind-arm.o
+(/opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libgcc_eh.a)libunwind.o
+(/opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libgcc_eh.a)pr-support.o
+attempt to open /opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libc.a failed
+attempt to open /opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/../../../../arm-arm920t-linux-gnueabi/lib/libc.a failed
+attempt to open /opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/lib/libc.a failed
+attempt to open /opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a succeeded
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)libc-start.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)check_fds.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)libc-tls.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)elf-init.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)errno.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)aeabi_read_tp.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)errno-loc.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)assert.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dcgettext.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dcigettext.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)finddomain.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)loadmsgcat.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)localealias.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)l10nflist.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)explodename.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)plural.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)plural-exp.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)hash-string.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)setjmp.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sigjmp.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)bsd-_setjmp.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)longjmp.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)__longjmp.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)jmp-unwind.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)signal.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)raise.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)killpg.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sigaction.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sigprocmask.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)kill.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sigsuspend.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sigempty.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sigfillset.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sigaddset.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sigdelset.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sigismem.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sigisempty.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sigtimedwait.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sigrestorer.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)atof.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)atoi.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)atoll.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)abort.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)bsearch.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)msort.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getenv.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)putenv.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)setenv.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)exit.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)atexit.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)cxa_atexit.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)div.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)random.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)random_r.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)rand.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strtol.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strtoul.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strtoll.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strtoull.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strtol_l.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strtoul_l.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strtoll_l.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strtoull_l.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strtod.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strtod_l.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)system.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)canonicalize.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)add_n.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)cmp.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)lshift.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)rshift.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)mul.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)mul_1.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)mul_n.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sub_n.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)submul_1.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)mpn2dbl.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)grouping.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)tens_in_limb.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)fpioconst.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)asprintf.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)fscanf.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)scanf.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sscanf.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getline.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)rename.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)fxprintf.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)iofclose.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)iofdopen.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)iofflush.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)iofopen.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)iofputs.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)iofread.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)iofwrite.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)iogetdelim.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)iopopen.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)ioputs.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)iosetvbuf.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)ioungetc.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)iovsscanf.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)iofopen64.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)putchar_u.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)wfileops.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)clearerr.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)fileno.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)pclose.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)rewind.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)setbuf.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)setlinebuf.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)vasprintf.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)fcloseall.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)freopen64.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)fseeko64.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)ftello64.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)libc_fatal.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)feof_u.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)ferror_u.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)fputc_u.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getc_u.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getchar_u.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)putc_u.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)iofgets_u.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)iofputs_u.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)fileops.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)genops.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)stdfiles.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)stdio.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strops.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)malloc.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)morecore.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strcat.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strchr.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strcmp.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strcpy.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strcspn.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strverscmp.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strdup.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strerror.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)_strerror.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strlen.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strnlen.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strncmp.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strncpy.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strrchr.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strpbrk.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strsignal.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strspn.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strstr.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strtok.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strtok_r.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)memchr.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)memcmp.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)memmove.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)memset.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)mempcpy.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)stpcpy.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strcasecmp.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strncase.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strncase_l.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)memcpy.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)wordcopy.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strsep.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strcasestr.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)rawmemchr.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strchrnul.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)argz-count.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)argz-stringify.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)memrchr.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)wmempcpy.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)wcsmbsload.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)ctime.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)gmtime.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)localtime.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)mktime.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)time.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)gettimeofday.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)settimeofday.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)tzset.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)tzfile.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)stime.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strptime.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strptime_l.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strftime.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strftime_l.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)era.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)alt_digit.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)lc-time-cleanup.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)opendir.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)closedir.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)readdir64.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)setgroups.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)uname.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)times.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)wait.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)waitpid.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)wait3.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)wait4.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)alarm.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sleep.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)pause.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)nanosleep.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)fork.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)vfork.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)_exit.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)execve.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)execv.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)execle.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)execl.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)execvp.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)execlp.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getpid.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getppid.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getuid.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)geteuid.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getgid.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getegid.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getgroups.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)setuid.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)setgid.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)setpgid.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getpgrp.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)setpgrp.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getsid.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)setsid.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)setresuid.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)setresgid.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getlogin_r.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sysconf.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)glob64.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)fnmatch.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)regex.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)confstr.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getopt.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getopt1.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sched_getp.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sched_sets.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sched_gets.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sched_yield.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sched_primax.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sched_primin.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sched_getaffinity.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sched_setaffinity.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getaddrinfo.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)pread64.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)get_child_max.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)environ.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)exit-thread.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)mkfifo.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)stat64.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)fstat64.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)lstat64.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)xstat64.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)fxstat64.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)lxstat64.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)mknod.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)xmknod.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)fxstatat64.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)statfs64.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)umask.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)chmod.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)fchmod.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)mkdir.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)open.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)open64.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)openat.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)close.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)read.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)write.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)access.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)fcntl.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)flock.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dup.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dup2.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)pipe.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)pipe2.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)creat64.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)chdir.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)fchdir.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getcwd.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)chown.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)fchown.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)lchown.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)ttyname_r.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)isatty.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)link.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)symlink.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)readlink.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)unlink.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)rmdir.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)poll.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)posix_fallocate64.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sendfile64.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)have_o_cloexec.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)open64_2.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)speed.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)cfsetspeed.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)tcsetattr.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)tcgetattr.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)tcgetpgrp.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)tcsetpgrp.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)tcdrain.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)tcflush.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)tcsendbrk.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)cfmakeraw.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)tcgetsid.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getrlimit.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getrlimit64.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)setrlimit64.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getpriority.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)setpriority.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)nice.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sbrk.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)ioctl.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)seteuid.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)setegid.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getpagesize.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getdtsz.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sethostname.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)select.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)acct.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)chroot.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)fsync.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sync.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)fdatasync.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)reboot.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)gethostid.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)swapon.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)swapoff.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)mktemp.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)mkstemp64.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)mkdtemp.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)usleep.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)mntent.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)mntent_r.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)utimes.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)lutimes.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)ftruncate64.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getusershell.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)syslog.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)syscall.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)daemon.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)mmap.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)mmap64.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)munmap.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)mprotect.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)madvise.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)mlock.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)munlock.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)tsearch.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getsysstats.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dirname.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getclktck.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)init-misc.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)llseek.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)umount2.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)readahead.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)makedev.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)adjtimex.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)klogctl.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)mount.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)mremap.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)personality.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)pivot_root.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)prctl.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sysinfo.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)unshare.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)accept.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)bind.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)connect.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getpeername.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getsockname.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getsockopt.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)listen.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)recv.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)recvfrom.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)recvmsg.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)send.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sendmsg.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sendto.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)setsockopt.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)shutdown.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)socket.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)socketpair.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)have_sock_cloexec.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)cmsg_nxthdr.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)msgget.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)msgctl.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)semop.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)semget.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)semctl.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)shmat.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)shmdt.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)shmget.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)shmctl.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)wcfuncs.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)wctype.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)iswctype.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)alloca_cutoff.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)libc-lowlevellock.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)libc-cancellation.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)register-atfork.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)libc_multiple_threads.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)herror.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)inet_addr.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)inet_ntop.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)inet_pton.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)res_hconf.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)res_libc.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)res-state.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)nsswitch.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)hosts-lookup.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)backtrace.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)backtracesymsfd.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)memcpy_chk.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)memmove_chk.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)mempcpy_chk.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)memset_chk.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strcat_chk.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strcpy_chk.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strncpy_chk.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sprintf_chk.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)vsprintf_chk.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)snprintf_chk.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)vsnprintf_chk.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)printf_chk.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)fprintf_chk.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)vprintf_chk.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)vfprintf_chk.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)chk_fail.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)asprintf_chk.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)vasprintf_chk.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dprintf_chk.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)vdprintf_chk.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)fortify_fail.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)inet_ntoa.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)herrno.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)herrno-loc.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)gethstbyad.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)gethstbyad_r.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)gethstbynm.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)gethstbynm2_r.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)gethstbynm_r.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getsrvbynm.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getsrvbynm_r.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getsrvbypt.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getsrvbypt_r.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)ether_aton_r.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)ether_hton.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)in6_addr.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getnameinfo.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)if_index.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)ifaddrs.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)check_pf.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)check_native.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)ifreq.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)nscd_getpw_r.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)nscd_getgr_r.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)nscd_gethst_r.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)nscd_getai.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)nscd_getserv_r.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)nscd_helper.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getutent_r.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)utmp_file.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)utmpname.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)grantpt.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)unlockpt.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)ptsname.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)setutxent.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getutxent.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)endutxent.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)pututxline.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)utmpxname.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)updwtmpx.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dl-support.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dl-addr.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)enbl-secure.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dl-profstub.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dl-libc.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dl-sysdep.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)init-first.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sysdep.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)gconv_open.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)gconv.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)gconv_close.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)gconv_db.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)gconv_conf.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)gconv_builtin.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)gconv_simple.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)gconv_trans.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)gconv_cache.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)gconv_dl.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)setlocale.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)findlocale.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)loadlocale.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)loadarchive.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)lc-ctype.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)lc-collate.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)C-ctype.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)C-time.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)SYS_libc.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)C_name.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)xlocale.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)localename.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)global-locale.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)coll-lookup.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)ctype-info.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)setfpucw.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)fpu_control.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)allocrtsig.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)qsort.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)secure-getenv.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)addmul_1.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)_itoa.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)itoa-digits.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)itoa-udigits.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)vfprintf.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)printf_fp.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)reg-printf.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)printf_fphex.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)fprintf.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)snprintf.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sprintf.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dprintf.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)vfwprintf.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)vfscanf.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)tempname.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)funlockfile.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)errlist.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)siglist.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)printf-parsemb.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)printf-parsewc.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)filedoalloc.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)ioftell.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)wfiledoalloc.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)iogetline.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)iopadn.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)ioseekoff.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)iosetbuffer.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)iovsprintf.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)iowpadn.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)wgenops.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)iofwide.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)fseek.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)memstream.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)iovdprintf.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)vsnprintf.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)ftello.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)iofread_u.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sdlerror.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sdladdr.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sdladdr1.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sdlinfo.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sdlmopen.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strcoll.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strndup.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)stpncpy.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strcasecmp_l.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)argz-ctsep.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)argz-addsep.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)basename.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strcoll_l.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)wcscat.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)wcschr.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)wcslen.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)wmemchr.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)wmemcpy.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)wmemmove.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)wmemset.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)btowc.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)mbrlen.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)mbrtowc.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)wcrtomb.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)mbsrtowcs.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)wcsrtombs.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)mbsnrtowcs.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)wcsnlen.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)wcschrnul.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)wcscoll.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)wcscoll_l.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)mbsrtowcs_l.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)offtime.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)asctime.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)setitimer.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getdents64.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getgrnam_r.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getpwnam_r.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)glob.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)pwrite64.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)xstat.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)statfs.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)fstatfs64.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)posix_fallocate.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)xstatconv.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)setrlimit.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)brk.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)readv.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)writev.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)gethostname.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)ftruncate.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)opensock.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)wctrans.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)towctrans.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)res_init.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)digits_dots.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)service-lookup.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)grp-lookup.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)pwd-lookup.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)ethers-lookup.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)readonly-area.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)nis_hash.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getutent.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)updwtmp.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)getpt.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dl-load.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dl-cache.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dl-lookup.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dl-object.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dl-reloc.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dl-error.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dl-debug.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dl-misc.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dl-profile.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dl-tls.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dl-origin.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dl-execstack.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dl-open.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dl-close.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dl-trampoline.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dl-tsd.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)lc-monetary.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)lc-numeric.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)C-messages.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)C-monetary.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)C-numeric.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)C-paper.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)C-name.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)C-address.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)C-telephone.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)C-measurement.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)C-identification.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)C-collate.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)s_isinf.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strtof.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strtold.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strtof_l.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)strtold_l.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)divrem.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dbl2mpn.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)mpn2flt.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)_itowa.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)itowa-digits.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sdlopen.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sdlclose.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sdlsym.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)sdlvsym.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)wcscmp.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)pread.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)pwrite.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)fstatfs.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)lseek.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)profil.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)prof-freq.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dl-deps.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dl-runtime.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dl-init.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dl-fini.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dl-version.o
+(/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/libc.a)dl-sym.o
+(/opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/libgcc_eh.a)unwind-c.o
+attempt to open /opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/crtend.o succeeded
+/opt/xtools/arm920t/lib/gcc/arm-arm920t-linux-gnueabi/4.4.6/crtend.o
+attempt to open /opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/crtn.o succeeded
+/opt/xtools/arm920t/arm-arm920t-linux-gnueabi/sysroot/usr/lib/crtn.onetworking/lib.a(nslookup.o): In function `print_host':
+nslookup.c:(.text.print_host+0x44): warning: Using 'getaddrinfo' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+coreutils/lib.a(mktemp.o): In function `mktemp_main':
+mktemp.c:(.text.mktemp_main+0x98): warning: the use of `mktemp' is dangerous, better use `mkstemp'
+networking/lib.a(ipcalc.o): In function `ipcalc_main':
+ipcalc.c:(.text.ipcalc_main+0x26c): warning: Using 'gethostbyaddr' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+libbb/lib.a(inet_common.o): In function `INET_resolve':
+inet_common.c:(.text.INET_resolve+0x60): warning: Using 'gethostbyname' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+networking/lib.a(inetd.o): In function `reread_config_file':
+inetd.c:(.text.reread_config_file+0x230): warning: Using 'getservbyname' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+networking/lib.a(netstat.o): In function `ip_port_str':
+netstat.c:(.text.ip_port_str+0x50): warning: Using 'getservbyport' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+
