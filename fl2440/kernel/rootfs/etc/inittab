@@ -1,0 +1,30 @@
+#Format for each entry: <id>:<runlevels>:<action>:<process>
+#
+#id == tty to run on, or empty for /dev/console.
+# If specified, then /dev/$id device must exist
+# runlevels == ignored, busybox doesn't support it
+# action == one of sysinit, respawn, askfirst, wait, and once
+# process == program to run
+# Startup the system
+# mount all the file systems specified in /etc/fstab
+::sysinit:/bin/mount -a
+# Use mdev to auto generate device nod and auto mount SD card and USB storage
+::sysinit:/bin/echo /sbin/mdev > /proc/sys/kernel/hotplug
+::sysinit:/sbin/mdev -s
+#make shm, pts support
+::sysinit:/bin/mkdir -p /dev/pts
+::sysinit:/bin/mkdir -p /dev/shm
+::sysinit:/bin/mount -t devpts devpts /dev/pts
+#Set hostname
+null::sysinit:/bin/hostname -F /etc/hostname
+#Enable console logon
+null::respawn:/sbin/getty -L ttyS0 115200 vt100
+# now run any rc scripts, which used to start other application
+null::wait:/etc/init.d/rcS
+# system daemon
+null::respawn:/sbin/syslogd -n
+null::respawn:/sbin/klogd -n
+# Stuff to do before rebooting
+null::shutdown:/bin/killall klogd
+null::shutdown:/bin/killall syslogd
+null::shutdown:/bin/umount -a -r

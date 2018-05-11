@@ -1,0 +1,2 @@
+#!/bin/sh
+ifconfig eth0 192.168.1.250 netmask 255.255.255.0 up

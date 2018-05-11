@@ -1,0 +1,18 @@
+# Busybox Shell(ash) configure file
+export PATH=/bin:sbin:/usr/bin:/usr/sbin:/apps/bin:/apps/tools
+export PS1='\w >: '
+export USER=`id -un`
+export LOGNAME=$USER
+export HOSTNAME=`/bin/hostname`
+export HISTSIZE=500
+export HISTFILESIZE=500
+export PAGER='/bin/more'
+export EDITOR='/bin/vi'
+export INPUTRC=/etc/inputrc
+export LD_LIBRARY_PATH=/lib:/usr/lib:/apps/lib
+export network_cfg_dir=/apps/etc/network
+### Some alias command
+alias vim='vi'
+alias ll='ls -l'
+alias l.='ls -d .*'
+alias df='df -h'
