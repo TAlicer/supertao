@@ -275,11 +275,11 @@ int main()
                 printf("反转后的链表为：\n");
                 Output_L(&head);
 		        break;
-		case 5: 
+        case 5: 
 		        GetMidNode(&head,&e);
 		        printf("中间元素为：%d\n",e);
 				break;
-		case 6:
+        case 6:
 		        printf("输入要插入的节点和数据\n");
 				scanf("%d",&i);
 				scanf("%d",&new_data);
