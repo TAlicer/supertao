@@ -3,6 +3,9 @@
 #include <string.h>
 #include <pthread.h>
 #include <errno.h>
+#include <sys/klog.h>
+#include <syslog.h>
+#include <stdarg.h>
 
 #include "mosquitto.h"
 #include "iot_mqtt.h"
@@ -17,7 +20,12 @@
  *******************************************************************************/
 int main(int argc, char **argv)    
 {   
-        
+
+
+    daemon(1,1);
+    openlog("lora_iot",LOG_CONS|LOG_PID,0);
+    syslog(LOG_EMERG,"Program %s start running\n",argv[0]);
+
     int                    err;                    
     pthread_t              tid1;
     pthread_t              tid2;

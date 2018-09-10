@@ -19,8 +19,8 @@
 void *comport_worker(void *arg);
 char *  get_time(void);
 int query_loradb_id(unsigned char *serial_number,unsigned char *device_address, u8 netaddr, u8 devaddr);
-int write_loradb_data(unsigned char *buff);
-int send_loradb_data(struct  mosquitto  * mosq,int type);
+int write_loradb_data(unsigned char *buff,unsigned char *type);
+int send_loradb_data(struct  mosquitto  * mosq);
 
 
 #endif

@@ -31,7 +31,7 @@ char *  get_time(void)              //获取系统时间
 		return NULL;
 	}
 	
-    snprintf(pack,sizeof(pack),"%04d\\%02d\\%02d %02d:%02d:%02d",st_now_time->tm_year+1900,\
+    snprintf(pack,sizeof(pack),"%04d/%02d/%02d %02d:%02d:%02d",st_now_time->tm_year+1900,\
 	st_now_time->tm_mon+1,  st_now_time->tm_mday,  st_now_time->tm_hour ,\
 	st_now_time->tm_min,st_now_time->tm_sec);
 	
@@ -47,7 +47,6 @@ void *comport_worker(void *arg)
 	
     int                    i;    
 	int                    rv = 0;
-	int                    type;
 	int                    len = 0;
     int                    ofset = 0; 
 	char                   buf[1024];                                             //用于串口接收
@@ -98,26 +97,14 @@ PARSER:                                                                         
 				snprintf(pack,sizeof(pack),"%s,%4.2f,%d,%s,%s,%d", st_data.serial_number,(st_data.battery_voltage)/51, \
 				st_data.signal_strength,st_data.device_address,st_data.message_time,st_data.datapack[0]);
 				
-				type = 2;
 
-                if((mqtt_send_data(pack, st_flag->mosq,type)))        //通过mqtt发送
+                if(0 != (mqtt_send_data(pack, st_flag->mosq,"doorswitch")))        //通过mqtt发送
 				{
 			
-					write_loradb_data(pack);                          //如果mqtt连接中断，将数据写到数据库中
+					write_loradb_data(pack,"doorswitch");                          //如果mqtt连接中断，将数据写到数据库中
 					
 				}	
 			
-//				while(st_flag->sta_mqtt   ==  FALSE)
-//				{
-//				 if(st_flag->sta_mqtt   ==  TRUE)                      //如果mqtt连接成功
-//				 {
-//			
-//                  if(!(send_loradb_data(st_flag->mosq,type)))         //将数据库中的数据发送出去
-//
-//                 break;		
-//				 }
-//				}
-
                 memset(&st_data,0,sizeof(_st_data));
 				memmove(buf, &buf[i+data_length], (len-(i+data_length)));				
 				len -= (i+data_length);
@@ -148,24 +135,12 @@ PARSER:                                                                         
 				snprintf(pack,sizeof(pack),"%s,%4.2f,%d,%s,%s,%d.%d", st_data.serial_number,(st_data.battery_voltage)/51, \
 				st_data.signal_strength,st_data.device_address,st_data.message_time,st_data.datapack[0],st_data.datapack[1]);
 				
-				type = 0;
-				if((mqtt_send_data(pack, st_flag->mosq,type)))        //通过mqtt发送
+				if(0 != (mqtt_send_data(pack, st_flag->mosq,"temperature")))        //通过mqtt发送
 				{
-					write_loradb_data(pack);                          //如果mqtt连接中断，将数据写到数据库中
+					write_loradb_data(pack,"temperature");                          //如果mqtt连接中断，将数据写到数据库中
 					
 				}	
 				
-				
-//				while(st_flag->sta_mqtt   ==  FALSE)
-//				{
-//				 if(st_flag->sta_mqtt   ==  TRUE)                      //如果mqtt连接成功
-//				 {
-//
-//                  if(!(send_loradb_data(st_flag->mosq,type)))         //将数据库中的数据发送出去
-//			      break;		
-//				 }
-//				}
-
                 memset(&st_data,0,sizeof(_st_data));
 				memmove(buf, &buf[i+data_length], (len-(i+data_length)));				
 				len -= (i+data_length);
@@ -198,23 +173,12 @@ PARSER:                                                                         
 				snprintf(pack,sizeof(pack),"%s,%4.2f,%d,%s,%s,%d.%d,%d.%d", st_data.serial_number,(st_data.battery_voltage)/51,st_data.signal_strength, \
 				st_data.device_address,st_data.message_time,st_data.datapack[0],st_data.datapack[1],st_data.datapack[2],st_data.datapack[3]);
 				
-				type = 1;
-				if((mqtt_send_data(pack, st_flag->mosq,type)))        //通过mqtt发送
+				if(0 != (mqtt_send_data(pack, st_flag->mosq,"humidity")))        //通过mqtt发送
 				{
-					write_loradb_data(pack);                          //如果mqtt连接中断，将数据写到数据库中
+					write_loradb_data(pack,"humidity");                          //如果mqtt连接中断，将数据写到数据库中
 					
 				}	
 				
-//				while(st_flag->sta_mqtt   ==  FALSE)
-//				{
-//				 if(st_flag->sta_mqtt   ==  TRUE)                      //如果mqtt连接成功
-//				 {
-//
-//                 if(!(send_loradb_data(st_flag->mosq,type)))         //将数据库中的数据发送出去
-//			      break;		
-//				 }
-//				}	
-
                 memset(&st_data,0,sizeof(_st_data));
 				memmove(buf, &buf[i+data_length], (len-(i+data_length)));				
 				len -= (i+data_length);
@@ -285,7 +249,7 @@ out:
 
 /*将未发送的数据写到数据库中,返回值：0 （成功），1（失败）*/
 
-int write_loradb_data(unsigned char *pack)
+int write_loradb_data(unsigned char *pack,unsigned char *type)
 {
    sqlite3 *db;
    char                     sql[128];
@@ -304,7 +268,8 @@ int write_loradb_data(unsigned char *pack)
       fprintf(stderr, "Opened database2 successfully\n");
    }
    memset(sql, 0, sizeof(sql));
-   snprintf(sql, sizeof(sql), "INSERT INTO MESSAGE VALUES (NULL, '%s', 1);",pack);  //输入执行的命令
+   snprintf(sql, sizeof(sql), "INSERT INTO MESSAGE VALUES (NULL, '%s', 1,'%s');",pack,type);  //输入执行的命令
+   printf("%s",sql);
    
     rc = sqlite3_exec(db, sql, NULL, NULL, &zErrMsg);                               //执行命令
    if( rc != SQLITE_OK )                                                            //<sqlite3.h>中SQLITE_OK = 0；
@@ -326,15 +291,18 @@ int write_loradb_data(unsigned char *pack)
 
 /*将数据库中未发送的数据发出去, 返回值：0 （成功），非0（失败）*/
 
-int send_loradb_data(struct  mosquitto  * mosq,int type)
+int send_loradb_data(struct  mosquitto  * mosq)
 {
    sqlite3                  *db;
    char                     *zErrMsg = 0;                    //zErrMsg将被返回用来获取程序生成的任何错误。
    char                     sql_1[128];
    char                     sql_2[128];
+   char                     sql_3[128],type[2];
    unsigned char            pack[128];
-   char                     **result;
-   int                      rownum;      //查询到的总行数
+   char                     **result1;
+   char                     **result2;
+
+   int                      rownum=0;      //查询到的总行数
    int                      colnum;      //查询到的总列数
    char                     *errmsg = NULL;
    int                      rv=0;
@@ -354,17 +322,26 @@ int send_loradb_data(struct  mosquitto  * mosq,int type)
 
     memset(sql_1, 0, sizeof(sql_1));
     memset(sql_2, 0, sizeof(sql_2));
+	memset(sql_3, 0, sizeof(sql_3));
 	memset(pack, 0, sizeof(pack));
     snprintf(sql_1, sizeof(sql_1), "select data from message where flag=1;");
-    
-    if( SQLITE_OK == sqlite3_get_table(db, sql_1, &result, &rownum, &colnum, &errmsg) )
-    { 
-      for(i=1;i<=rownum;i++)
+    snprintf(sql_2, sizeof(sql_2), "select type from message where flag=1;");
+	
+	sqlite3_get_table(db, sql_2,&result2, &rownum, &colnum, &errmsg);
+    if(rownum <= 0)
+    {
+       printf("lora1.db don't have unsend data\n");
+       return -2;
+    }
+
+    if( SQLITE_OK == sqlite3_get_table(db, sql_1, &result1, &rownum, &colnum, &errmsg) )
+    {   
+        for(i=1;i<=rownum;i++)
       {
-		strncpy(pack, result[i], 128); 
-        rv=mqtt_send_data(pack, mosq,type);
-        snprintf(sql_2, sizeof(sql_2), "delete from message where id=%d;",i);
-        sqlite3_exec(db, sql_2, NULL, NULL, &zErrMsg);
+		strncpy(pack, result1[i], 128); 
+        rv=mqtt_send_data(pack, mosq,result2[i]);
+        snprintf(sql_3, sizeof(sql_2), "delete from message where id=%d;",i);
+        sqlite3_exec(db, sql_3, NULL, NULL, &zErrMsg);
          
       }
     

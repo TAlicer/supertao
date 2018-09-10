@@ -12,12 +12,12 @@
 
 
 //返回值：     0 表示成功     >0  连接掉线，请复位st_flag->mqtt  <0 其他失败 
-int mqtt_send_data(unsigned char *buff,struct  mosquitto  * mosq,int type)
+int mqtt_send_data(unsigned char *buff,struct  mosquitto  * mosq,const unsigned char *type)
 {
 	int            rt   = 0;  
-	const unsigned char  *Str_Type[3] = {"temperature","sensirion","doorswitch"};
+//	const unsigned char  *Str_Type[3] = {"temperature","sensirion","doorswitch"};
 	
-	rt = mosquitto_publish(mosq, NULL, Str_Type[type], 64, buff, QOS, RETAIN);
+	rt = mosquitto_publish(mosq, NULL, type, strlen(buff), buff, QOS, RETAIN);
 
     switch(rt)
 	{
@@ -53,6 +53,7 @@ void * mqtt_worker(void  *	arg)
 	{
 		st_flag->sta_mqtt   =   TRUE;
 		debug_printf("Mosquitto Connect Succeed :%s\n",mosquitto_strerror(rt));
+        send_loradb_data(st_flag->mosq);      //检查数据库中是否有数据，如果有则发出去
 	}
 	else
 	{
@@ -73,7 +74,7 @@ void * mqtt_worker(void  *	arg)
 				st_flag->sta_mqtt   =   TRUE;
 				debug_printf("Mosquitto Connect Succeed :%s\n",mosquitto_strerror(rt));
 				
-				if(0==(send_loradb_data(st_flag->mosq,type)))         //将数据库中的数据发送出去
+				if(0==(send_loradb_data(st_flag->mosq)))         //将数据库中的数据发送出去
 				break;
 			}
 			else

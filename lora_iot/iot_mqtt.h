@@ -65,7 +65,7 @@ typedef struct __st_flag
 
 
 //返回值：     0 表示成功     >0 连接掉线，请复位st_flag->mqtt  <0 其他失败 
-extern int mqtt_send_data(unsigned char *buff,struct  mosquitto  * mosq,int type);
+extern int mqtt_send_data(unsigned char *buff,struct  mosquitto  * mosq,const unsigned char *type);
 void *     mqtt_worker(void  *	arg);
 
 #endif

@@ -26,9 +26,9 @@ int UART0_Open(char   *port)
     fd = open( port, O_RDWR|O_NOCTTY|O_NDELAY);    
     if (fd<0)    
     {    
-        perror("Can't Open Serial Port");    
+        perror("Can't Open Serial Port\n");    
         return(FALSE);    
-    }    
+    }  	
     //恢复串口为阻塞状态                                   
     if(fcntl(fd, F_SETFL, 0) < 0)    
     {    
